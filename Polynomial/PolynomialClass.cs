@@ -36,14 +36,14 @@ namespace Polynomial
             return noramlArray;
         }
 
-        private static PolynomialClass Multiply(double cofficient, int degree, PolynomialClass obj)
+        private PolynomialClass Multiply(double cofficient, int degree)
         {
-            int tmpDegree = obj._degree + degree;
+            int tmpDegree = this._degree + degree;
             double[] array = new double[tmpDegree + 1];
             for (int i = 0; i < degree; i++)
                 array[i] = 0;
             for (int i = degree, j = 0; i <= tmpDegree; i++, j++)
-                array[i] = cofficient * obj[j];
+                array[i] = cofficient * this[j];
             return new PolynomialClass(array);
         }
         #endregion
@@ -68,10 +68,7 @@ namespace Polynomial
             }
         }
 
-        public PolynomialClass(PolynomialClass obj)
-        {
-             new PolynomialClass(obj._cofficientArray);
-        }
+        public PolynomialClass(PolynomialClass obj) : this(obj._cofficientArray) { }
         #endregion
 
         #region Overrided methods
@@ -157,10 +154,9 @@ namespace Polynomial
         {
             if ((a._degree == 0 && a[0] == 0) || (b._degree == 0 && b[0] == 0))
                 return new PolynomialClass(new double[] { 0.0 });
-            PolynomialClass polynomial = new PolynomialClass(b);
+            PolynomialClass polynomial = new PolynomialClass(new double[0]);
             for (int i = 0; i <= a._degree; i++)
-                if(a[i] != 0)
-                    polynomial = Multiply(a[i], i, polynomial);
+                polynomial += b.Multiply(a[i], i);
             return polynomial;
         }       
 
