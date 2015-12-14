@@ -9,6 +9,13 @@ namespace PolynomialTest
     public class PolynomialClassTest
     {
         [Test]
+        [TestCase(null, ExpectedException = typeof(ArgumentNullException))]
+        public void PolynomialClassConstructorTest(double[] array)
+        {
+            new PolynomialClass(array);
+        }
+
+        [Test]
         [TestCaseSource(typeof(DataClass), "ToNormalArrayRepresentationData")]
         public bool ToNormalArrayRepresentationTest(double[] a, double[] b)
         {
