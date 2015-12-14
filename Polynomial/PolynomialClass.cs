@@ -96,7 +96,7 @@ namespace Polynomial
         public override string ToString()
         {
             if (this._degree == 0)
-                return "0";
+                return this[0].ToString();
             String polynomial = this[_degree] + "x^" + _degree;
             for(int i = _degree - 1; i > 0; i--)
             {
@@ -130,6 +130,10 @@ namespace Polynomial
         #region Public Methods
         public static PolynomialClass Add(PolynomialClass a, PolynomialClass b)
         {
+            if (a._degree == 0 && a[0] == 0)
+                return b;
+            if (b._degree == 0 && b[0] == 0)
+                return a;
             double[] maxArray, minArray;
             if (a._degree > b._degree)
             {
@@ -142,7 +146,7 @@ namespace Polynomial
                 maxArray = b._cofficientArray;
             }
             double[] array = new double[maxArray.Length];
-            for (int i = maxArray.Length - 1; i > maxArray.Length - minArray.Length; i--)
+            for (int i = maxArray.Length - 1; i >= minArray.Length; i--)
                 array[i] = maxArray[i];
             for (int i = 0; i < minArray.Length; i++)
                 array[i] = minArray[i] + maxArray[i];
@@ -151,6 +155,8 @@ namespace Polynomial
 
         public static PolynomialClass Multiply(PolynomialClass a, PolynomialClass b)
         {
+            if ((a._degree == 0 && a[0] == 0) || (b._degree == 0 && b[0] == 0))
+                return new PolynomialClass(new double[] { 0.0 });
             PolynomialClass polynomial = new PolynomialClass(b);
             for (int i = 0; i <= a._degree; i++)
                 if(a[i] != 0)
