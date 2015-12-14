@@ -95,6 +95,8 @@ namespace Polynomial
 
         public override string ToString()
         {
+            if (this._degree == 0)
+                return "0";
             String polynomial = this[_degree] + "x^" + _degree;
             for(int i = _degree - 1; i > 0; i--)
             {
@@ -117,8 +119,8 @@ namespace Polynomial
         public override int GetHashCode()
         {
             int hashCode = 17;
-            foreach (double cof in _cofficientArray)
-                hashCode += cof.GetHashCode();
+            for(int i = 0; i <= _degree; i++)
+                hashCode += this[i].GetHashCode() * i.GetHashCode();
             hashCode *= _degree.GetHashCode();
             return hashCode;
 
