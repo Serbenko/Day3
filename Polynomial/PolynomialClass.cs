@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Linq;
+using Configuration;
 
 namespace Polynomial
 {
     public sealed class PolynomialClass
     {
+        private static double epsilon;
+
+        static PolynomialClass()
+        {
+            epsilon = 0.00001;
+            //epsilon = double.Parse(ConfigurationManager.AppSettings["epsilon"]);
+        }
         #region Private Fields
         private int _degree;
-        private double[] _cofficientArray;
+        private readonly double[] _cofficientArray;
 
         private double this[int i]
         {
@@ -25,7 +33,7 @@ namespace Polynomial
         {
             int length = 0;
             for(int i = array.Length; i > 0; i--)
-                if(Math.Abs(array[i - 1]) > 0)
+                if(Math.Abs(array[i - 1]) > epsilon)
                 {
                     length = i;
                     break;
@@ -78,7 +86,9 @@ namespace Polynomial
                 return true;
             if (ReferenceEquals(null, obj))
                 return false;
-            return (this.GetType() == obj.GetType()) && (this._cofficientArray.SequenceEqual(((PolynomialClass)obj)._cofficientArray));
+            if (this.GetType() == obj.GetType())
+                return this.Equals((PolynomialClass)obj);
+            return false;
         }
 
         public bool Equals(PolynomialClass obj)
@@ -87,7 +97,9 @@ namespace Polynomial
                 return true;
             if (ReferenceEquals(null, obj))
                 return false;
-            return (this._cofficientArray.SequenceEqual(((PolynomialClass)obj)._cofficientArray));
+            if(this._degree == obj._degree)
+                return (this._cofficientArray.SequenceEqual(((PolynomialClass)obj)._cofficientArray));
+            return false;
         }
 
         public override string ToString()
@@ -127,6 +139,8 @@ namespace Polynomial
         #region Public Methods
         public static PolynomialClass Add(PolynomialClass a, PolynomialClass b)
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException();
             if (a._degree == 0 && a[0] == 0)
                 return b;
             if (b._degree == 0 && b[0] == 0)
@@ -152,6 +166,8 @@ namespace Polynomial
 
         public static PolynomialClass Multiply(PolynomialClass a, PolynomialClass b)
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException();
             if ((a._degree == 0 && a[0] == 0) || (b._degree == 0 && b[0] == 0))
                 return new PolynomialClass(new double[] { 0.0 });
             PolynomialClass polynomial = new PolynomialClass(new double[0]);
@@ -162,6 +178,8 @@ namespace Polynomial
 
         public static PolynomialClass Subtraction(PolynomialClass a, PolynomialClass b)
         {
+            if (a == null || b == null)
+                throw new ArgumentNullException();
             double[] tmpArray = new double[b._degree + 1];
             for (int i = 0; i <= b._degree; i++)
                tmpArray[i] = b._cofficientArray[i] / (-1);
@@ -189,7 +207,7 @@ namespace Polynomial
         {
             if (ReferenceEquals(a, b))
                 return true;
-            if ((object)a == null || (object)b == null)
+            if (ReferenceEquals(a, null) || ReferenceEquals(null, b))
                 return false;
             return (a._cofficientArray.SequenceEqual(b._cofficientArray));
         }

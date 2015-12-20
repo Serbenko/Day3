@@ -111,7 +111,7 @@ namespace PolynomialTest
                 {
                     yield return new TestCaseData(new PolynomialClass(new double[] { 10.0, 0.0, 15.0 })).Returns("15x^2 + 10");
                     yield return new TestCaseData(new PolynomialClass(new double[] { 10.0, -18.0, 15.0 })).Returns("15x^2 - 18x^1 + 10");
-                    yield return new TestCaseData(new PolynomialClass(new double[] { 18.0, 7.9, -15.1 })).Returns("-15.1x^2 + 7.9x^1 + 18");
+                    yield return new TestCaseData(new PolynomialClass(new double[] { 18.0, 7.9, -15.1 })).Returns("-15,1x^2 + 7,9x^1 + 18");
                     yield return new TestCaseData(new PolynomialClass(new double[] { 0.0})).Returns("0");
                 }
             }
@@ -130,7 +130,7 @@ namespace PolynomialTest
             {
                 get
                 {
-                    yield return new TestCaseData(new PolynomialClass(new double[] { 10.0, 0.0, 15.0 }), new PolynomialClass(new double[] { 18.0, -3.0, 15.0, -20.5, 36.9 })).Returns("36.9x^4 - 20.5x^3 + 30x^2 - 3x^1 + 28");
+                    yield return new TestCaseData(new PolynomialClass(new double[] { 10.0, 0.0, 15.0 }), new PolynomialClass(new double[] { 18.0, -3.0, 15.0, -20.5, 36.9 })).Returns("36,9x^4 - 20,5x^3 + 30x^2 - 3x^1 + 28");
                     yield return new TestCaseData(new PolynomialClass(new double[] { 10.0, 73.0, -15.0 }), new PolynomialClass(new double[] { 0.0 })).Returns("-15x^2 + 73x^1 + 10");
                     yield return new TestCaseData(new PolynomialClass(new double[] { 10.0, 73.0, -15.0 }), new PolynomialClass(new double[] { 20.0 })).Returns("-15x^2 + 73x^1 + 30");
                     yield return new TestCaseData(new PolynomialClass(new double[] { 0.0 }), new PolynomialClass(new double[] { 10.0, 73.0, -15.0 })).Returns("-15x^2 + 73x^1 + 10");
@@ -141,7 +141,7 @@ namespace PolynomialTest
             {
                 get
                 {
-                    yield return new TestCaseData(new PolynomialClass(new double[] { 10.0, 0.0, 15.0 }), new PolynomialClass(new double[] { 18.0, -3.0, 15.0, -20.5, 36.9 })).Returns("-36.9x^4 + 20.5x^3 + 3x^1 - 8");
+                    yield return new TestCaseData(new PolynomialClass(new double[] { 10.0, 0.0, 15.0 }), new PolynomialClass(new double[] { 18.0, -3.0, 15.0, -20.5, 36.9 })).Returns("-36,9x^4 + 20,5x^3 + 3x^1 - 8");
                     yield return new TestCaseData(new PolynomialClass(new double[] { 10.0, 73.0, -15.0 }), new PolynomialClass(new double[] { 0.0 })).Returns("-15x^2 + 73x^1 + 10");
                     yield return new TestCaseData(new PolynomialClass(new double[] { 10.0, 73.0, -15.0 }), new PolynomialClass(new double[] { 20.0 })).Returns("-15x^2 + 73x^1 - 10");
                     yield return new TestCaseData(new PolynomialClass(new double[] { 0.0 }), new PolynomialClass(new double[] { 10.0, 73.0, -15.0 })).Returns("15x^2 - 73x^1 - 10");
